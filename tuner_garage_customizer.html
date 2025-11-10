@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuner Garage - Customizer</title>
+    <link rel="stylesheet" href="tuner_garage_customizer.css">
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <header>
+        <button class="back-btn" onclick="goBack()">← Back to Garage</button>
+        <div>
+            <div class="car-title" id="carTitle">Loading...</div>
+            <div class="car-stage" id="carStage"></div>
+        </div>
+        <div></div>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="category">
+                <div class="category-title">Body Kit</div>
+                <button class="option-btn selected" data-option="bodykit" data-value="stock" data-weight="0">
+                    <span>Stock</span>
+                    <span class="option-weight">+0kg</span>
+                </button>
+                <button class="option-btn" data-option="bodykit" data-value="sport" data-weight="5">
+                    <span>Sport Kit</span>
+                    <span class="option-weight">+5kg</span>
+                </button>
+                <button class="option-btn" data-option="bodykit" data-value="aggressive" data-weight="8">
+                    <span>Aggressive Kit</span>
+                    <span class="option-weight">+8kg</span>
+                </button>
+                <button class="option-btn" data-option="bodykit" data-value="widebody" data-weight="15">
+                    <span>Wide Body</span>
+                    <span class="option-weight">+15kg</span>
+                </button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">Spoiler</div>
+                <button class="option-btn selected" data-option="spoiler" data-value="stock" data-weight="0">
+                    <span>Stock</span>
+                    <span class="option-weight">+0kg</span>
+                </button>
+                <button class="option-btn" data-option="spoiler" data-value="lip" data-weight="3">
+                    <span>Lip Spoiler</span>
+                    <span class="option-weight">+3kg</span>
+                </button>
+                <button class="option-btn" data-option="spoiler" data-value="ducktail" data-weight="5">
+                    <span>Ducktail</span>
+                    <span class="option-weight">+5kg</span>
+                </button>
+                <button class="option-btn" data-option="spoiler" data-value="gtwing" data-weight="12">
+                    <span>GT Wing</span>
+                    <span class="option-weight">+12kg</span>
+                </button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">Wheels</div>
+                <button class="option-btn selected" data-option="wheels" data-value="stock" data-weight="0">
+                    <span>Stock Wheels</span>
+                    <span class="option-weight">+0kg</span>
+                </button>
+                <button class="option-btn" data-option="wheels" data-value="bbs" data-weight="-8">
+                    <span>BBS LM (18")</span>
+                    <span class="option-weight">-8kg</span>
+                </button>
+                <button class="option-btn" data-option="wheels" data-value="oz" data-weight="-6">
+                    <span>OZ Racing (19")</span>
+                    <span class="option-weight">-6kg</span>
+                </button>
+                <button class="option-btn" data-option="wheels" data-value="rotiform" data-weight="-4">
+                    <span>Rotiform (20")</span>
+                    <span class="option-weight">-4kg</span>
+                </button>
+                <button class="option-btn" data-option="wheels" data-value="forged" data-weight="-12">
+                    <span>Forged Carbon (19")</span>
+                    <span class="option-weight">-12kg</span>
+                </button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">Exhaust Tips</div>
+                <button class="option-btn selected" data-option="exhaust" data-value="stock" data-weight="0">
+                    <span>Stock</span>
+                    <span class="option-weight">+0kg</span>
+                </button>
+                <button class="option-btn" data-option="exhaust" data-value="dual" data-weight="2">
+                    <span>Dual Round</span>
+                    <span class="option-weight">+2kg</span>
+                </button>
+                <button class="option-btn" data-option="exhaust" data-value="quad" data-weight="4">
+                    <span>Quad Tips</span>
+                    <span class="option-weight">+4kg</span>
+                </button>
+                <button class="option-btn" data-option="exhaust" data-value="center" data-weight="3">
+                    <span>Center Exit</span>
+                    <span class="option-weight">+3kg</span>
+                </button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">Performance Parts</div>
+                <button class="option-btn" data-option="turbo" data-value="stage1" data-hp="50" data-weight="15">
+                    <span>Stage 1 Turbo</span>
+                    <span class="option-weight">+50HP / +15kg</span>
+                </button>
+                <button class="option-btn" data-option="turbo" data-value="stage2" data-hp="100" data-weight="25">
+                    <span>Stage 2 Turbo</span>
+                    <span class="option-weight">+100HP / +25kg</span>
+                </button>
+                <button class="option-btn" data-option="suspension" data-value="coilovers" data-weight="-10">
+                    <span>Coilover Suspension</span>
+                    <span class="option-weight">-10kg</span>
+                </button>
+                <button class="option-btn" data-option="brakes" data-value="ceramic" data-weight="-8">
+                    <span>Carbon Ceramic Brakes</span>
+                    <span class="option-weight">-8kg</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="car-display">
+            <div class="car-canvas">
+                <div class="car-3d-container">
+                    <img id="carModel" class="car-3d-model" src="" alt="Car Model">
+                    <div class="visual-effects" id="visualEffects"></div>
+                </div>       
+            </div>
+            <div class="btn-row">
+                <button class="btn-glass3d" id="show3d-btn">Vizualizare 3D</button>
+                <button class="btn-glass3d" id="showInterior-btn">Vezi Interior</button>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stats-title">Performance Stats</div>
+
+            <div class="stat-group">
+                <div class="stat-row">
+                    <span class="stat-label">Horsepower</span>
+                    <span class="stat-value highlight" id="statHP">510</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Weight</span>
+                    <span class="stat-value" id="statWeight">1730 kg</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">0-100 km/h</span>
+                    <span class="stat-value" id="stat0to100">3.9s</span>
+                </div>
+            </div>
+
+            <div class="power-to-weight">
+                <div class="power-to-weight-label">Power-to-Weight Ratio</div>
+                <div>
+                    <span class="power-to-weight-value" id="powerToWeight">295</span>
+                    <span class="power-to-weight-unit">HP/ton</span>
+                </div>
+            </div>
+
+            <div class="stat-group" style="margin-top: 1rem;">
+                <div class="category-title" style="margin-bottom: 1rem;">Modifications</div>
+                <div class="stat-row">
+                    <span class="stat-label">Body Kit</span>
+                    <span class="stat-value" id="modBodykit">Stock</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Spoiler</span>
+                    <span class="stat-value" id="modSpoiler">Stock</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Wheels</span>
+                    <span class="stat-value" id="modWheels">Stock</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Exhaust</span>
+                    <span class="stat-value" id="modExhaust">Stock</span>
+                </div>
+            </div>
+
+            <div class="save-section">
+                <div class="slot-info">
+                    <div class="slot-label">Select Save Slot</div>
+                    <div class="slot-buttons">
+                        <button class="slot-btn selected" data-slot="A">Slot A</button>
+                        <button class="slot-btn" data-slot="B">Slot B</button>
+                    </div>
+                </div>
+                <button class="btn-save" onclick="saveConfiguration()">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message" id="toastMessage">Configuration saved!</div>
+        <div class="toast-progress"></div>
+    </div>
+
+    <script src="tuner_garage_customizer.js"></script>
+</body>
+</html>

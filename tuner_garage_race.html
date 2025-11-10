@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuner Garage - Drag Race</title>
+    <link rel="stylesheet" href="tuner_garage_race.css">
+</head>
+<body>
+    <div class="racing-bg"></div>
+    <div class="speed-line"></div>
+    <div class="speed-line"></div>
+    <div class="speed-line"></div>
+    <div class="speed-line"></div>
+
+    <header>
+        <button class="back-btn" onclick="goBack()">← Back to Garage</button>
+        <h1>Drag Race - 1/4 Mile</h1>
+        <div></div>
+    </header>
+
+    <div class="container">
+        <div class="race-setup">
+            <div class="car-card" id="cardA">
+                <div class="slot-label">Slot A</div>
+                <div class="car-name" id="carNameA">Loading...</div>
+                <div class="car-stage" id="carStageA"></div>
+                <div class="car-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">HP</div>
+                        <div class="stat-value" id="hpA">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Weight</div>
+                        <div class="stat-value" id="weightA">0 kg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">0-100</div>
+                        <div class="stat-value" id="time0to100A">0s</div>
+                    </div>
+                </div>
+                <div class="power-to-weight-display">
+                    <div class="ptw-label">Power-to-Weight</div>
+                    <div class="ptw-value" id="ptwA">0 HP/ton</div>
+                </div>
+            </div>
+
+            <div class="car-card" id="cardB">
+                <div class="slot-label">Slot B</div>
+                <div class="car-name" id="carNameB">Loading...</div>
+                <div class="car-stage" id="carStageB"></div>
+                <div class="car-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">HP</div>
+                        <div class="stat-value" id="hpB">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Weight</div>
+                        <div class="stat-value" id="weightB">0 kg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">0-100</div>
+                        <div class="stat-value" id="time0to100B">0s</div>
+                    </div>
+                </div>
+                <div class="power-to-weight-display">
+                    <div class="ptw-label">Power-to-Weight</div>
+                    <div class="ptw-value" id="ptwB">0 HP/ton</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="race-track">
+            <div class="track-info">
+                <div class="track-title">Drag Strip</div>
+                <div class="track-distance">402 meters (1/4 mile)</div>
+            </div>
+
+            <div class="sound-visualizer">
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+            </div>
+
+            <div class="start-lights">
+                <div class="light" id="light1"></div>
+                <div class="light" id="light2"></div>
+                <div class="light" id="light3"></div>
+                <div class="light" id="light4"></div>
+                <div class="light" id="light5"></div>
+            </div>
+
+            <div class="timer-display" id="timerDisplay">Ready to race</div>
+
+            <div class="race-progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-row">
+                    <div class="progress-label">
+                        <span>Slot A Progress</span>
+                        <span id="progressPercentA">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill pulse" id="progressBarA" style="width: 0%;">
+                            <span>🏎️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-row">
+                    <div class="progress-label">
+                        <span>Slot B Progress</span>
+                        <span id="progressPercentB">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill pulse" id="progressBarB" style="width: 0%;">
+                            <span>🏎️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lanes-container">
+                <div class="lane">
+                    <div class="lane-label">SLOT A</div>
+                    <div class="car-racer" id="racerA">🏎️</div>
+                    <div class="finish-line"></div>
+                </div>
+                <div class="lane">
+                    <div class="lane-label">SLOT B</div>
+                    <div class="car-racer" id="racerB">🏎️</div>
+                    <div class="finish-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="race-controls">
+            <button class="btn-start" id="btnStart" onclick="startRace()">START RACE</button>
+            <button class="btn-reset" id="btnReset" onclick="resetRace()" style="display: none;">Race Again</button>
+            <div style="text-align: center;">
+                <button class="btn-clear-garage" onclick="clearGarage()">Clear Garage & Add New Cars</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay pentru Rezultate -->
+    <div class="results-overlay" id="resultsOverlay" onclick="closeResults(event)">
+        <div class="results-modal" onclick="event.stopPropagation()">
+            <div class="results-close" onclick="closeResults()">×</div>
+            <div class="winner-announcement" id="winnerText"></div>
+            <div class="results-title">Race Results</div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-car-name" id="resultNameA"></div>
+                    <div class="result-stats">
+                        <div class="result-row">
+                            <span class="result-label">Elapsed Time (ET)</span>
+                            <span class="result-value" id="resultTimeA">0.00s</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Reaction Time</span>
+                            <span class="result-value" id="resultReactionA">0.00s</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Finish Speed</span>
+                            <span class="result-value" id="resultSpeedA">0 km/h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-car-name" id="resultNameB"></div>
+                    <div class="result-stats">
+                        <div class="result-row">
+                            <span class="result-label">Elapsed Time (ET)</span>
+                            <span class="result-value" id="resultTimeB">0.00s</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Reaction Time</span>
+                            <span class="result-value" id="resultReactionB">0.00s</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Finish Speed</span>
+                            <span class="result-value" id="resultSpeedB">0 km/h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message" id="toastMessage">Race starting...</div>
+        <div class="toast-progress"></div>
+    </div>
+
+    <script src="tuner_garage_race.js"></script>
+</body>
+</html>

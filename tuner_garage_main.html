@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuner Garage - Select Your Car</title>
+    <link rel="stylesheet" href="tuner_garage_main.css">
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    
+    <header>
+        <h1>Tuner Garage</h1>
+        <p class="subtitle">Select, customize, and race your dream car</p>
+    </header>
+
+    <div class="container">
+        <div class="dropdown-section">
+            <h2 class="section-title">Choose Your Car</h2>
+            <div class="custom-dropdown">
+                <div class="dropdown-selected" id="dropdownSelected">
+                    <span class="dropdown-text">Select a car model...</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options" id="dropdownOptions"></div>
+            </div>
+        </div>
+
+        <div class="selected-car-display" id="selectedCarDisplay">
+            <div class="hero-image" id="heroImage">
+                <img id="heroCarImage" src="" alt="Selected Car" style="display: none;">
+            </div>
+            <div class="stage-selector" id="stageSelector"></div>
+        </div>
+
+        <div class="cta-container">
+            <button class="btn-primary" id="modifyBtn" disabled>
+                Continue to Customization
+            </button>
+        </div>
+
+        <h2 class="garage-header">Your Garage</h2>
+        <div class="garage-slots">
+            <div class="garage-slot" id="slotA">
+                <div class="slot-header">Slot A</div>
+                <div id="slotAContent" class="empty">Empty slot</div>
+            </div>
+            <div class="garage-slot" id="slotB">
+                <div class="slot-header">Slot B</div>
+                <div id="slotBContent" class="empty">Empty slot</div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <button class="btn-primary btn-secondary" id="raceBtn" disabled>
+                Start Drag Race
+            </button>
+        </div>
+    </div>
+
+    <!-- Selection Info Badge -->
+    <div class="selection-info" id="selectionInfo">
+        <div class="selection-info-icon">🏎️</div>
+        <div class="selection-info-text">
+            <div class="selection-info-label">Current Selection</div>
+            <div class="selection-info-value" id="selectionValue">Stock</div>
+        </div>
+        <div class="selection-info-stats">
+            <div class="selection-info-stat">
+                <div class="selection-info-stat-value" id="selectionHP">510</div>
+                <div class="selection-info-stat-label">HP</div>
+            </div>
+            <div class="selection-info-stat">
+                <div class="selection-info-stat-value" id="selectionWeight">1730</div>
+                <div class="selection-info-stat-label">KG</div>
+            </div>
+            <div class="selection-info-stat">
+                <div class="selection-info-stat-value" id="selection0to100">3.9</div>
+                <div class="selection-info-stat-label">0-100</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="tuner_garage_main.js"></script>
+</body>
+</html>

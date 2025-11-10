@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuner Garage - Documentație</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fira+Code:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e5e5e5;
+            line-height: 1.7;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a2a2a;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .doc-logo {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .doc-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #fff, #3b82f6, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .doc-subtitle {
+            font-size: 1.125rem;
+            color: #999;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .toc h2 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .toc li a {
+            color: #ccc;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            display: block;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .toc li a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .section:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .section h2 {
+            color: #3b82f6;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section h3 {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h4 {
+            color: #8b5cf6;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .section ul, .section ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .section strong {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(37, 37, 37, 0.8);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #10b981;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e5e5e5;
+            font-size: 0.875rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(15, 15, 15, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            color: #3b82f6;
+            font-weight: 600;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #2a2a2a;
+            color: #ccc;
+        }
+
+        tbody tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: rgba(37, 37, 37, 0.6);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .info-card h4 {
+            color: #3b82f6;
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .info-card p {
+            font-size: 0.938rem;
+            color: #999;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box.success {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            border-left-color: #10b981;
+        }
+
+        .highlight-box.warning {
+            background: rgba(245, 158, 11, 0.05);
+            border-color: rgba(245, 158, 11, 0.3);
+            border-left-color: #f59e0b;
+        }
+
+        /* Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(37, 37, 37, 0.6);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* File Structure */
+        .file-tree {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .file-tree-item {
+            padding: 0.25rem 0;
+            color: #ccc;
+        }
+
+        .file-tree-item.folder {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .file-tree-item.file {
+            padding-left: 1.5rem;
+            color: #10b981;
+        }
+
+        /* Footer */
+        .doc-footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid #2a2a2a;
+            margin-top: 4rem;
+            color: #666;
+        }
+
+        .doc-footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .doc-header h1 {
+                font-size: 2rem;
+            }
+
+            .doc-logo {
+                font-size: 3rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: #2563eb;
+            transform: translateY(-5px);
+        }
+
+        .scroll-top::before {
+            content: '↑';
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="nav-title">🏎️ Tuner Garage Documentation</div>
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-btn">← Înapoi la Index</a>
+                <a href="tuner_garage_landing.html" class="nav-btn">Launch App 🚀</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="doc-header">
+            <div class="doc-logo">🏎️</div>
+            <h1>TUNER GARAGE</h1>
+            <p class="doc-subtitle">Documentație Completă - Build, Customize, Race</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📑 Cuprins</h2>
+            <ul>
+                <li><a href="#overview">📋 Prezentare Generală</a></li>
+                <li><a href="#structure">📁 Structura Fișierelor</a></li>
+                <li><a href="#landing">1️⃣ Landing Page</a></li>
+                <li><a href="#garage">2️⃣ Main Garage</a></li>
+                <li><a href="#customizer">3️⃣ Customizer</a></li>
+                <li><a href="#race">4️⃣ Race</a></li>
+                <li><a href="#navigation">🔗 Navigare</a></li>
+                <li><a href="#storage">💾 Stocare Date</a></li>
+                <li><a href="#design">🎨 Design System</a></li>
+                <li><a href="#responsive">📱 Responsive Design</a></li>
+                <li><a href="#installation">🚀 Instalare</a></li>
+                <li><a href="#tech">⚙️ Tehnologii</a></li>
+                <li><a href="#features">🎯 Features</a></li>
+                <li><a href="#stats">📊 Statistici</a></li>
+            </ul>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="section" id="overview">
+            <h2>📋 Prezentare Generală</h2>
+            <p><strong>Tuner Garage</strong> este o aplicație web interactivă care permite utilizatorilor să:</p>
+            <ul>
+                <li>🚗 Selecteze și personalizeze mașini de performanță</li>
+                <li>⚡ Configureze diferite stage-uri de tuning</li>
+                <li>🎨 Customizeze aspectul și componentele</li>
+                <li>🏁 Concureze în curse drag între două mașini</li>
+            </ul>
+            
+            <div class="highlight-box success">
+                <strong>✨ Aplicație Completă:</strong> Tuner Garage este o aplicație full-stack frontend cu 4 pagini interactive, 9 mașini, și peste 15,000 combinații posibile!
+            </div>
+        </div>
+
+        <!-- File Structure Section -->
+        <div class="section" id="structure">
+            <h2>📁 Structura Fișierelor</h2>
+            <p>Aplicația este compusă din <strong>4 pagini principale</strong>, fiecare separată în 3 fișiere:</p>
+            
+            <div class="file-tree">
+                <div class="file-tree-item folder">project/</div>
+                <div class="file-tree-item file">├── tuner_garage_landing.html</div>
+                <div class="file-tree-item file">├── tuner_garage_landing.css</div>
+                <div class="file-tree-item file">├── tuner_garage_landing.js</div>
+                <div class="file-tree-item file">├── tuner_garage_main.html</div>
+                <div class="file-tree-item file">├── tuner_garage_main.css</div>
+                <div class="file-tree-item file">├── tuner_garage_main.js</div>
+                <div class="file-tree-item file">├── tuner_garage_customizer.html</div>
+                <div class="file-tree-item file">├── tuner_garage_customizer.css</div>
+                <div class="file-tree-item file">├── tuner_garage_customizer.js</div>
+                <div class="file-tree-item file">├── tuner_garage_race.html</div>
+                <div class="file-tree-item file">├── tuner_garage_race.css</div>
+                <div class="file-tree-item file">├── tuner_garage_race.js</div>
+                <div class="file-tree-item file">├── index.html</div>
+                <div class="file-tree-item file">└── README.md</div>
+            </div>
+        </div>
+
+        <!-- Landing Page Section -->
+        <div class="section" id="landing">
+            <h2>1️⃣ Landing Page - Pagina de Intrare</h2>
+            
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>📄 HTML</h4>
+                    <p>tuner_garage_landing.html<br>Mărime: 2.6 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎨 CSS</h4>
+                    <p>tuner_garage_landing.css<br>Mărime: 6.3 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ JavaScript</h4>
+                    <p>tuner_garage_landing.js<br>Mărime: 364 B</p>
+                </div>
+            </div>
+
+            <h3>Caracteristici:</h3>
+            <ul>
+                <li>🌐 Animații de fundal cu grid 3D</li>
+                <li>✨ Efecte de glow cu orbs plutitoare</li>
+                <li>🎴 3 carduri de features interactive</li>
+                <li>📊 Statistici animate</li>
+                <li>🔘 Buton CTA cu efecte speciale</li>
+                <li>🎭 Shimmer effect pe titlu</li>
+            </ul>
+        </div>
+
+        <!-- Main Garage Section -->
+        <div class="section" id="garage">
+            <h2>2️⃣ Main Garage - Selecția Mașinilor</h2>
+            
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>📄 HTML</h4>
+                    <p>tuner_garage_main.html<br>Mărime: 3.3 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎨 CSS</h4>
+                    <p>tuner_garage_main.css<br>Mărime: 28 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ JavaScript</h4>
+                    <p>tuner_garage_main.js<br>Mărime: 20 KB</p>
+                </div>
+            </div>
+
+            <h3>Caracteristici:</h3>
+            <ul>
+                <li>📋 Dropdown personalizat cu imagini pentru selecția mașinilor</li>
+                <li>🗄️ Bază de date cu specificații detaliate pentru fiecare mașină</li>
+                <li>🔧 4 stage-uri de tuning (Stock, Stage 1, Stage 2, Stage 3)</li>
+                <li>🏠 Sistem de garage cu 2 sloturi (Slot A și Slot B)</li>
+                <li>👁️ Preview live pentru fiecare configurație</li>
+                <li>✅ Validare pentru începerea cursei</li>
+            </ul>
+
+            <h3>🚗 Mașini Disponibile:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nr.</th>
+                        <th>Mașină</th>
+                        <th>HP Stock</th>
+                        <th>Preț Bază</th>
+                        <th>0-100 km/h</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>BMW M3 Competition</td><td>510 HP</td><td>€75,000</td><td>3.9s</td></tr>
+                    <tr><td>2</td><td>VW Golf GTI Mk7.5</td><td>245 HP</td><td>€35,000</td><td>6.2s</td></tr>
+                    <tr><td>3</td><td>Honda Civic Type R</td><td>320 HP</td><td>€45,000</td><td>5.7s</td></tr>
+                    <tr><td>4</td><td>Audi RS3</td><td>400 HP</td><td>€65,000</td><td>3.8s</td></tr>
+                    <tr><td>5</td><td>Subaru WRX STI</td><td>310 HP</td><td>€40,000</td><td>5.2s</td></tr>
+                    <tr><td>6</td><td>Porsche 911 Turbo S</td><td>650 HP</td><td>€210,000</td><td>2.7s</td></tr>
+                    <tr><td>7</td><td>Mercedes-AMG C63 S</td><td>510 HP</td><td>€85,000</td><td>3.9s</td></tr>
+                    <tr><td>8</td><td>Nissan GT-R R35</td><td>565 HP</td><td>€115,000</td><td>2.9s</td></tr>
+                    <tr><td>9</td><td>Toyota Supra A90</td><td>340 HP</td><td>€55,000</td><td>4.3s</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Customizer Section -->
+        <div class="section" id="customizer">
+            <h2>3️⃣ Customizer - Personalizarea Mașinii</h2>
+            
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>📄 HTML</h4>
+                    <p>tuner_garage_customizer.html<br>Mărime: 9.7 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎨 CSS</h4>
+                    <p>tuner_garage_customizer.css<br>Mărime: 18 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ JavaScript</h4>
+                    <p>tuner_garage_customizer.js<br>Mărime: 13 KB</p>
+                </div>
+            </div>
+
+            <h3>Opțiuni de Customizare:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Opțiuni</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Body Kit</strong></td>
+                        <td>Stock, Sport Kit, Aggressive Kit, Wide Body</td>
+                        <td>Weight (+0 to +15kg)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spoiler</strong></td>
+                        <td>Stock, Lip, Ducktail, GT Wing</td>
+                        <td>Weight (+0 to +12kg)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wheels</strong></td>
+                        <td>Stock, 18", 19", 20" Forged</td>
+                        <td>Weight (-20 to +15kg)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Suspension</strong></td>
+                        <td>Stock, Lowered, Coilovers, Air</td>
+                        <td>Weight (+0 to +30kg)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exhaust</strong></td>
+                        <td>Stock, Cat-Back, Turbo-Back, Race</td>
+                        <td>HP (+0 to +25), Weight (-15 to +0kg)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sistem de Calcul:</h3>
+            <ul>
+                <li>📈 HP modificări în funcție de exhaust</li>
+                <li>⚖️ Weight total calculat dinamic</li>
+                <li>🎯 Performance rating (0-100)</li>
+                <li>👁️ Preview în timp real</li>
+                <li>💾 Salvare automată în localStorage</li>
+            </ul>
+        </div>
+
+        <!-- Race Section -->
+        <div class="section" id="race">
+            <h2>4️⃣ Race - Cursa Drag</h2>
+            
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>📄 HTML</h4>
+                    <p>tuner_garage_race.html<br>Mărime: 8.6 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎨 CSS</h4>
+                    <p>tuner_garage_race.css<br>Mărime: 15 KB</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ JavaScript</h4>
+                    <p>tuner_garage_race.js<br>Mărime: 9.2 KB</p>
+                </div>
+            </div>
+
+            <h3>Caracteristici:</h3>
+            <ul>
+                <li>🏁 Simulare realistă de cursă drag 1/4 mile</li>
+                <li>🎬 Animații smooth pentru ambele mașini</li>
+                <li>🧮 Calcul bazat pe: HP, Weight, 0-100 time</li>
+                <li>🎉 Display câștigător cu efecte de confetti</li>
+                <li>📊 Tabel comparativ detaliat</li>
+                <li>🔄 Opțiune rematch</li>
+                <li>⬅️ Buton back to garage</li>
+            </ul>
+
+            <h3>Formula de Cursă:</h3>
+            <pre><code>Performance Score = (HP / Weight) × (1 / time0to100)
+Speed = Performance Score × variație aleatoare (0.98-1.02)</code></pre>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="section" id="navigation">
+            <h2>🔗 Navigarea între Pagini</h2>
+            <div class="highlight-box">
+                <p><strong>Flow complet de navigare:</strong></p>
+                <pre><code>Landing Page (tuner_garage_landing.html)
+    ↓ [ENTER GARAGE]
+Main Garage (tuner_garage_main.html)
+    ↓ [Continue to Customization]
+Customizer (tuner_garage_customizer.html)
+    ↓ [Save to Garage]
+Main Garage (tuner_garage_main.html)
+    ↓ [Start Drag Race] (necesită 2 mașini)
+Race (tuner_garage_race.html)
+    ↓ [Back to Garage]
+Main Garage (tuner_garage_main.html)</code></pre>
+            </div>
+        </div>
+
+        <!-- Storage Section -->
+        <div class="section" id="storage">
+            <h2>💾 Sistem de Stocare</h2>
+            
+            <h3>localStorage:</h3>
+            <pre><code>'tunerGarage_slotA'  // Configurația completă mașina Slot A
+'tunerGarage_slotB'  // Configurația completă mașina Slot B</code></pre>
+
+            <h3>Structura datelor salvate:</h3>
+            <pre><code>{
+    carId: "bmw_m3",
+    carName: "BMW M3 Competition",
+    carImage: "url",
+    stage: "stage2",
+    stageName: "Stage 2",
+    baseHP: 630,
+    baseWeight: 1700,
+    totalHP: 645,        // după customizare
+    totalWeight: 1698,   // după customizare
+    performanceRating: 87,
+    customization: {
+        bodykit: "sport",
+        spoiler: "ducktail",
+        wheels: "19inch",
+        suspension: "coilovers",
+        exhaust: "catback"
+    }
+}</code></pre>
+        </div>
+
+        <!-- Design System Section -->
+        <div class="section" id="design">
+            <h2>🎨 Design System</h2>
+            
+            <h3>Culori Principale:</h3>
+            <pre><code>--bg-primary: #0f0f0f        /* Fundal principal negru */
+--bg-secondary: #1a1a1a      /* Fundal secundar */
+--bg-tertiary: #252525       /* Fundal terțiar */
+--text-primary: #ffffff      /* Text principal alb */
+--text-secondary: #999999    /* Text secundar gri */
+--accent: #3b82f6            /* Albastru accent */
+--accent-hover: #2563eb      /* Albastru hover */
+--border: #2a2a2a            /* Culoare borduri */
+--success: #10b981           /* Verde pentru success */</code></pre>
+
+            <h3>Tipografie:</h3>
+            <ul>
+                <li><strong>Font:</strong> Inter (Google Fonts)</li>
+                <li><strong>Weights:</strong> 300, 400, 500, 600, 700, 900</li>
+            </ul>
+
+            <h3>Efecte Vizuale:</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>✨ Backdrop Blur</h4>
+                    <p>Efecte de blur pentru carduri și overlay-uri</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌈 Gradient Animations</h4>
+                    <p>Animații cu gradient pentru titluri</p>
+                </div>
+                <div class="info-card">
+                    <h4>💫 Glow Shadows</h4>
+                    <p>Umbre cu efect de strălucire</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎭 3D Transforms</h4>
+                    <p>Transformări 3D pentru efecte interactive</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Section -->
+        <div class="section" id="responsive">
+            <h2>📱 Responsive Design</h2>
+            
+            <h3>Breakpoints:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>Rezoluție</th>
+                        <th>Descriere</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Desktop</td><td>1920px+</td><td>Experiență optimă</td></tr>
+                    <tr><td>Laptop</td><td>1366px - 1920px</td><td>Layout adaptat</td></tr>
+                    <tr><td>Tablet</td><td>768px - 1366px</td><td>Grid modificat</td></tr>
+                    <tr><td>Mobile</td><td>max 768px</td><td>Single column</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Adaptări Mobile:</h3>
+            <ul>
+                <li>📱 Grid layouts → Single column</li>
+                <li>🔤 Font sizes reduse</li>
+                <li>👆 Touch-optimized buttons</li>
+                <li>🎬 Simplified animations</li>
+            </ul>
+        </div>
+
+        <!-- Installation Section -->
+        <div class="section" id="installation">
+            <h2>🚀 Instalare și Utilizare</h2>
+            
+            <div class="highlight-box warning">
+                <h3>⚠️ Cerințe:</h3>
+                <ul>
+                    <li>✅ Browser modern (Chrome, Firefox, Safari, Edge)</li>
+                    <li>✅ JavaScript activat</li>
+                    <li>✅ localStorage disponibil</li>
+                    <li>✅ Conexiune internet (pentru Google Fonts și imagini)</li>
+                </ul>
+            </div>
+
+            <h3>Pași de Instalare:</h3>
+            <ol>
+                <li>Descarcă toate fișierele în același director</li>
+                <li>Deschide <code>tuner_garage_landing.html</code> în browser</li>
+                <li>Enjoy! 🏁</li>
+            </ol>
+
+            <div class="highlight-box success">
+                <strong>💡 Tip:</strong> Poți începe direct din <code>index.html</code> pentru o navigare mai ușoară!
+            </div>
+        </div>
+
+        <!-- Technologies Section -->
+        <div class="section" id="tech">
+            <h2>⚙️ Tehnologii Utilizate</h2>
+            
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>🌐 HTML5</h4>
+                    <p>Structură semantică modernă</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎨 CSS3</h4>
+                    <p>Flexbox, Grid, Animations, Custom Properties</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ JavaScript ES6+</h4>
+                    <p>Vanilla JS fără framework-uri</p>
+                </div>
+                <div class="info-card">
+                    <h4>💾 Web Storage</h4>
+                    <p>localStorage și sessionStorage</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="section" id="features">
+            <h2>🎯 Features Principale</h2>
+            
+            <h3>✨ Landing Page:</h3>
+            <ul>
+                <li>✅ Animație grid 3D background</li>
+                <li>✅ Floating orbs cu blur</li>
+                <li>✅ Feature cards interactive</li>
+                <li>✅ Shimmer effect pe titlu</li>
+                <li>✅ Pulse animation pe CTA button</li>
+                <li>✅ Stats counter animat</li>
+            </ul>
+
+            <h3>🚗 Main Garage:</h3>
+            <ul>
+                <li>✅ Dropdown personalizat cu imagini</li>
+                <li>✅ 9 mașini cu specificații complete</li>
+                <li>✅ 4 stage-uri de tuning</li>
+                <li>✅ Preview în timp real</li>
+                <li>✅ 2 sloturi de garage</li>
+                <li>✅ Validare pentru race</li>
+            </ul>
+
+            <h3>🎨 Customizer:</h3>
+            <ul>
+                <li>✅ 5 categorii de customizare</li>
+                <li>✅ 20+ opțiuni totale</li>
+                <li>✅ Calcul HP și Weight live</li>
+                <li>✅ Performance rating</li>
+                <li>✅ Sidebar interactiv</li>
+                <li>✅ Salvare automată</li>
+            </ul>
+
+            <h3>🏁 Race:</h3>
+            <ul>
+                <li>✅ Simulare realistă de cursă</li>
+                <li>✅ Animații smooth</li>
+                <li>✅ Calcul bazat pe specs reale</li>
+                <li>✅ Confetti pentru câștigător</li>
+                <li>✅ Tabel comparativ</li>
+                <li>✅ Rematch option</li>
+            </ul>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="section" id="stats">
+            <h2>📊 Statistici Proiect</h2>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Total Fișiere</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Linii Cod</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">~140</div>
+                    <div class="stat-label">KB Size</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Mașini</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Stage-uri</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Opțiuni</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Combinații</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h3>🏆 Sumar Final</h3>
+                <p><strong>Tuner Garage</strong> este o aplicație completă, modernă și interactivă care demonstrează cele mai bune practici în dezvoltarea web frontend. Cu peste 5,000 de linii de cod, 9 mașini disponibile, și mii de combinații posibile, aplicația oferă o experiență bogată și captivantă pentru pasionații de mașini și tuning.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="doc-footer">
+            <p><strong>Tuner Garage v1.0</strong></p>
+            <p>Build. Customize. Race. Dominate. 🏎️💨</p>
+            <p style="margin-top: 1rem;">Creat cu ❤️ pentru pasionații de mașini și tuning</p>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop"></div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
